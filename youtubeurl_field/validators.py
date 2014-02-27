@@ -1,16 +1,22 @@
 #-*- coding: utf-8 -*-
 import re
 import urllib2
+import urlparse
 from django.utils.translation import ugettext_lazy as _
 from django import forms
 
 
 def validate_youtube_url(value):
     pattern = (
-        r'(https?://)?(www\.)?(youtube|youtu|youtube-nocookie)\.(com|be)/(watch\?v=|embed/|v/|.+\?v=)?([^&=%\?]{11})'
+        r'(https?://)?'
+        '(www\.)?'
+        '(youtube|youtu|youtube-nocookie)\.(com|be)/'
+        '(watch\?v=|embed/|v/|.+\?v=|v/|.+\&v=)?([^&=%\?]{11})'
     )
 
     if not value.is_empty():
+        if not urlparse.urlparse(value.value).scheme:
+            value.value = "http://" + value.value
         try:
             con = urllib2.urlopen(value.value)
         except urllib2.HTTPError:

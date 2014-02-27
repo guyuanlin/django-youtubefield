@@ -1,11 +1,9 @@
 import urlparse
 import os
-from django.core import validators
 from django.core.validators import EMPTY_VALUES
 
 
 class YoutubeUrl(object):
-    
     def __init__(self, value):
         self.value = value
 
@@ -22,7 +20,7 @@ class YoutubeUrl(object):
                 return os.path.split(parsed_url.path)[-1]
             return urlparse.parse_qs(parsed_url.query)['v'][0]
         return None
- 
+
     @property
     def embed_url(self):
         if not self.is_empty():
@@ -36,10 +34,10 @@ class YoutubeUrl(object):
         return None
 
     def __unicode__(self):
-        return "%s" % (self.value,) #if not self.is_empty() else None
+        return "%s" % (self.value,)  #if not self.is_empty() else None
 
     def __str__(self):
-        return "%s" % (self.value,) #if not self.is_empty() else None
+        return "%s" % (self.value,)  #if not self.is_empty() else None
 
     def __len__(self):
         return len(self.value) if self.value else 0

@@ -9,7 +9,7 @@ from youtubeurl_field.validators import validate_youtube_url
 from youtubeurl_field.youtubeurl import YoutubeUrl
 
 
-class YoutubeUrlField(models.CharField):
+class YoutubeUrlField(models.URLField):
     __metaclass__ = models.SubfieldBase
     description = _("YouTube url")
 
@@ -18,7 +18,7 @@ class YoutubeUrlField(models.CharField):
         self.validators.append(validate_youtube_url)
 
     def get_internal_type(self):
-        return "CharField"
+        return "URLField"
 
     def to_python(self, value):
         if isinstance(value, YoutubeUrl):

@@ -30,7 +30,7 @@ class YoutubeUrl(object):
     @property
     def thumb(self):
         if not self.is_empty():
-            return "http://img.youtube.com/vi/%s/2.jpg" % self.video_id
+            return "http://img.youtube.com/vi/%s/0.jpg" % self.video_id
         return None
 
     def __unicode__(self):
